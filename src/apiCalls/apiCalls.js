@@ -1,9 +1,15 @@
-export const getAnswer = () => {
-  // function should have params that accept what is coming in from MathCard.js (line 30)
+export const getAnswer = async (operation, numbers) => {
+  console.log(operation, numbers);
 
-  // function should send a POST request that contains all requirements outlined in API documentation (https://github.com/turingschool-examples/math4you-api)
+  const response = await fetch(`http://localhost:3001/${operation}`, {
+    method: 'POST',
+    body: JSON.stringify({ numbers: numbers }),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
 
-  // function should return the json'ed object so that MathCard.js line 31 works as is
-
-  // NOTE: You should not have to write code in any other file to make this work!
-}
+  return data;
+};
